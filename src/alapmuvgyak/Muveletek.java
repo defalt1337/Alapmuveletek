@@ -44,6 +44,10 @@ public class Muveletek extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuFajlKilep = new javax.swing.JMenuItem();
         mnuMuvelet = new javax.swing.JMenu();
+        muv_rbtn_osszeads = new javax.swing.JRadioButtonMenuItem();
+        muv_rbtn_kivonas = new javax.swing.JRadioButtonMenuItem();
+        muv_rbtn_osztas = new javax.swing.JRadioButtonMenuItem();
+        muv_rbtn_szorzas = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alapműveletek gyakoroltatása");
@@ -206,6 +210,19 @@ public class Muveletek extends javax.swing.JFrame {
         jMenuBar1.add(mnuFajl);
 
         mnuMuvelet.setText("Műveletek");
+
+        muv_rbtn_osszeads.setText("Összeadás");
+        mnuMuvelet.add(muv_rbtn_osszeads);
+
+        muv_rbtn_kivonas.setText("Kivonás");
+        mnuMuvelet.add(muv_rbtn_kivonas);
+
+        muv_rbtn_osztas.setText("Osztás");
+        mnuMuvelet.add(muv_rbtn_osztas);
+
+        muv_rbtn_szorzas.setText("Szorzás");
+        mnuMuvelet.add(muv_rbtn_szorzas);
+
         jMenuBar1.add(mnuMuvelet);
 
         setJMenuBar(jMenuBar1);
@@ -315,6 +332,10 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuFajlMegnyit;
     private javax.swing.JMenuItem mnuFajlMent;
     private javax.swing.JMenu mnuMuvelet;
+    private javax.swing.JRadioButtonMenuItem muv_rbtn_kivonas;
+    private javax.swing.JRadioButtonMenuItem muv_rbtn_osszeads;
+    private javax.swing.JRadioButtonMenuItem muv_rbtn_osztas;
+    private javax.swing.JRadioButtonMenuItem muv_rbtn_szorzas;
     private javax.swing.JPanel pnlGyakorlas;
     private javax.swing.JTextField txtEredmeny;
     // End of variables declaration//GEN-END:variables
