@@ -1,12 +1,14 @@
 package alapmuvgyak;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Muveletek extends javax.swing.JFrame {
 
@@ -224,6 +226,11 @@ public class Muveletek extends javax.swing.JFrame {
         mnuFajl.add(mnuFajlMent);
 
         fajl_chb_mentesmaskent.setText("Mentés másként...");
+        fajl_chb_mentesmaskent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fajl_chb_mentesmaskentActionPerformed(evt);
+            }
+        });
         mnuFajl.add(fajl_chb_mentesmaskent);
         mnuFajl.add(jSeparator1);
 
@@ -318,6 +325,29 @@ public class Muveletek extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_mnuFajlMentActionPerformed
+
+    private void fajl_chb_mentesmaskentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fajl_chb_mentesmaskentActionPerformed
+        JFileChooser fc = new JFileChooser(new File("."));
+        fc.setDialogTitle("Mentés másként..");
+        fc.setAcceptAllFileFilterUsed(false);
+        
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG és GIF képek", "PNG", "GIF");
+        fc.addChoosableFileFilter(filter);
+        
+        
+        int gomb = fc.showSaveDialog(this);
+        if (gomb == JFileChooser.APPROVE_OPTION ) {
+            File f = fc.getSelectedFile();
+            if (f.isDirectory()) {
+                lblValasz.setText("<html>Elérés" + f.getPath() + "<br>Könyvtár" + f.getName() + "</html>");
+                try {
+                    Files.write(Paths.get(f.getPath(), "stat.txt"),"Statisztika: ".getBytes());
+                } catch (IOException ex) {
+                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_fajl_chb_mentesmaskentActionPerformed
 
     /**
      * @param args the command line arguments
