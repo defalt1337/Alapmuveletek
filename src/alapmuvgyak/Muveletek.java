@@ -1,5 +1,13 @@
 package alapmuvgyak;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+
 public class Muveletek extends javax.swing.JFrame {
 
     /**
@@ -18,6 +26,7 @@ public class Muveletek extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         pnlGyakorlas = new javax.swing.JPanel();
         lblFeladat = new javax.swing.JLabel();
         txtEredmeny = new javax.swing.JTextField();
@@ -41,6 +50,7 @@ public class Muveletek extends javax.swing.JFrame {
         mnuFajl = new javax.swing.JMenu();
         mnuFajlMegnyit = new javax.swing.JMenuItem();
         mnuFajlMent = new javax.swing.JMenuItem();
+        fajl_chb_mentesmaskent = new javax.swing.JCheckBoxMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuFajlKilep = new javax.swing.JMenuItem();
         mnuMuvelet = new javax.swing.JMenu();
@@ -197,11 +207,24 @@ public class Muveletek extends javax.swing.JFrame {
 
         mnuFajl.setText("Fájl");
 
-        mnuFajlMegnyit.setText("Megnyit");
+        mnuFajlMegnyit.setText("Megnyit...");
+        mnuFajlMegnyit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFajlMegnyitActionPerformed(evt);
+            }
+        });
         mnuFajl.add(mnuFajlMegnyit);
 
         mnuFajlMent.setText("Ment");
+        mnuFajlMent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFajlMentActionPerformed(evt);
+            }
+        });
         mnuFajl.add(mnuFajlMent);
+
+        fajl_chb_mentesmaskent.setText("Mentés másként...");
+        mnuFajl.add(fajl_chb_mentesmaskent);
         mnuFajl.add(jSeparator1);
 
         mnuFajlKilep.setText("Kilép");
@@ -211,15 +234,19 @@ public class Muveletek extends javax.swing.JFrame {
 
         mnuMuvelet.setText("Műveletek");
 
+        buttonGroup1.add(muv_rbtn_osszeads);
         muv_rbtn_osszeads.setText("Összeadás");
         mnuMuvelet.add(muv_rbtn_osszeads);
 
+        buttonGroup1.add(muv_rbtn_kivonas);
         muv_rbtn_kivonas.setText("Kivonás");
         mnuMuvelet.add(muv_rbtn_kivonas);
 
+        buttonGroup1.add(muv_rbtn_osztas);
         muv_rbtn_osztas.setText("Osztás");
         mnuMuvelet.add(muv_rbtn_osztas);
 
+        buttonGroup1.add(muv_rbtn_szorzas);
         muv_rbtn_szorzas.setText("Szorzás");
         mnuMuvelet.add(muv_rbtn_szorzas);
 
@@ -269,6 +296,29 @@ public class Muveletek extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnMegoldasActionPerformed
 
+    private void mnuFajlMegnyitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMegnyitActionPerformed
+
+    }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
+
+    private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
+        JFileChooser fc = new JFileChooser();
+        int gomb = fc.showSaveDialog(this);
+        fc.setDialogTitle("Fájl mentése..");
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setCurrentDirectory(new File("."));
+        if ( gomb == JFileChooser.APPROVE_OPTION ) {
+            File f = fc.getSelectedFile();
+            if (f.isDirectory()) {
+                lblValasz.setText("<html>Elérés" + f.getPath() + "<br>Könyvtár" + f.getName() + "</html>");
+                try {
+                    Files.write(Paths.get(f.getPath(), "stat.txt"),"Statisztika: ".getBytes());
+                } catch (IOException ex) {
+                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_mnuFajlMentActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -311,6 +361,8 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JButton btnEllenorzes;
     private javax.swing.JButton btnMegoldas;
     private javax.swing.JButton btnUj;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBoxMenuItem fajl_chb_mentesmaskent;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
