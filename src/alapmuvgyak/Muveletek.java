@@ -304,7 +304,10 @@ public class Muveletek extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMegoldasActionPerformed
 
     private void mnuFajlMegnyitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMegnyitActionPerformed
-
+        JFileChooser fcMegnyit = new JFileChooser(new File("."));
+        fcMegnyit.setDialogTitle("Fájl megnyitása");
+        fcMegnyit.setAcceptAllFileFilterUsed(false);
+        
     }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
 
     private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
@@ -340,8 +343,12 @@ public class Muveletek extends javax.swing.JFrame {
             File f = fc.getSelectedFile();
             if (f.isDirectory()) {
                 lblValasz.setText("<html>Elérés" + f.getPath() + "<br>Könyvtár" + f.getName() + "</html>");
+                
+                String[] kit = ((FileNameExtensionFilter)fc.getFileFilter()).getExtensions();
+                String fn = f.getName() + kit[0];
+                
                 try {
-                    Files.write(Paths.get(f.getPath(), "stat.txt"),"Statisztika: ".getBytes());
+                    Files.write(Paths.get(fn),"Statisztika: ".getBytes());
                 } catch (IOException ex) {
                     Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
                 }
