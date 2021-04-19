@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Muveletek extends javax.swing.JFrame {
@@ -307,6 +308,11 @@ public class Muveletek extends javax.swing.JFrame {
         JFileChooser fcMegnyit = new JFileChooser(new File("."));
         fcMegnyit.setDialogTitle("Fájl megnyitása");
         fcMegnyit.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("PNG és GIF képek", "PNG", "GIF");
+        fcMegnyit.addChoosableFileFilter(imgFilter);
+        FileNameExtensionFilter textfilter = new FileNameExtensionFilter("csak szöveges dokumentum .txt", "TXT");
+        fcMegnyit.addChoosableFileFilter(textfilter);
+        
         
     }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
 
@@ -428,4 +434,28 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGyakorlas;
     private javax.swing.JTextField txtEredmeny;
     // End of variables declaration//GEN-END:variables
+    private String tartalomosszeallitas(){
+        String statisztika = "Az alapműveletek gyakoroltatása statisztika: /n";
+        
+        JLabel[] lbltomb = new JLabel[]{lblOsszKerdes,lbllblOsszProba,lblOsszeadKerdes,lblOsszeadProba,lblKivonasKerdes,lblKivonasProba,lblOsztasKerdes,lblOsztasProba,lblSzorzasKerdes,lblSzorzasProba};
+        
+        final int KERDES_MAX_HOSSZ = lbltomb[0].getText().length();
+        final int PROBA_MAX_HOSSZ = lbltomb[1].getText().length();
+        
+        for (int i = 0; i < lbltomb.length; i += 2) {
+            
+            JLabel lblkerdes = lbltomb[i];
+            JLabel lblproba = lbltomb[i + 1];
+            
+            final int he = 3; //helyi érték 3 helyen
+            String format = "%" + (KERDES_MAX_HOSSZ+he) + "s%" + (PROBA_MAX_HOSSZ+he) + "s/n";
+            
+            
+            statisztika += String.format(format,lblkerdes.getText(),lblproba.getText());
+        }
+        //statisztika += lblOsszKerdes.getText() + "/n";
+        //statisztika += lbllblOsszProba.getText() + "/n";
+        
+        return statisztika;
+    }
 }
