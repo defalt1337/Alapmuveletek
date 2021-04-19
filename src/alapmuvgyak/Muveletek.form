@@ -72,6 +72,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Oszt&#xe1;s"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="muv_rbtn_osztasActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="muv_rbtn_szorzas">
               <Properties>
@@ -200,6 +203,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEredmeny">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEredmenyActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEllenorzes">
           <Properties>

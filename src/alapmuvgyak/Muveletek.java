@@ -5,6 +5,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -12,7 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Muveletek extends javax.swing.JFrame {
-
+    Random rnd = new Random();
+    int random1 = rnd.nextInt((99) + 1);
+    int random2 = rnd.nextInt((99) + 1);
+    int szamokmegoldasa;
     /**
      * Creates new form Muveletek
      */
@@ -68,6 +72,12 @@ public class Muveletek extends javax.swing.JFrame {
         pnlGyakorlas.setBorder(javax.swing.BorderFactory.createTitledBorder("Gyakorlás"));
 
         lblFeladat.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        txtEredmeny.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEredmenyActionPerformed(evt);
+            }
+        });
 
         btnEllenorzes.setText("Ellenőrzés");
         btnEllenorzes.addActionListener(new java.awt.event.ActionListener() {
@@ -252,6 +262,11 @@ public class Muveletek extends javax.swing.JFrame {
 
         buttonGroup1.add(muv_rbtn_osztas);
         muv_rbtn_osztas.setText("Osztás");
+        muv_rbtn_osztas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                muv_rbtn_osztasActionPerformed(evt);
+            }
+        });
         mnuMuvelet.add(muv_rbtn_osztas);
 
         buttonGroup1.add(muv_rbtn_szorzas);
@@ -297,11 +312,11 @@ public class Muveletek extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEllenorzesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEllenorzesActionPerformed
-        
+        //empty lines
     }//GEN-LAST:event_btnEllenorzesActionPerformed
 
     private void btnMegoldasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMegoldasActionPerformed
-        
+        //empty lines
     }//GEN-LAST:event_btnMegoldasActionPerformed
 
     private void mnuFajlMegnyitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMegnyitActionPerformed
@@ -361,6 +376,33 @@ public class Muveletek extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_fajl_chb_mentesmaskentActionPerformed
+
+    private void muv_rbtn_osztasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muv_rbtn_osztasActionPerformed
+        int osztasMegoldas=random1/random2;
+        do {            
+            random2 = rnd.nextInt((99)+1);
+        } while (random2 == 0);
+        
+        String valasz = lblValasz.getText();
+        int szamValasz = Integer.parseInt(valasz);
+        
+        if (szamValasz==osztasMegoldas){
+            lblValasz.setText("Helyes megoldás!\n"+"Eddig helyesen megválaszolt kérdések száma: "+szamokmegoldasa);
+            szamokmegoldasa+=1;
+        }else {
+            lblValasz.setText("Helytelen válasz!\n"+"Eddig helyesen megválaszolt kérdések száma: "+szamokmegoldasa);
+            szamokmegoldasa-=1;
+            if (szamokmegoldasa==0){
+                szamokmegoldasa=0;
+            }
+        }
+        
+        
+    }//GEN-LAST:event_muv_rbtn_osztasActionPerformed
+
+    private void txtEredmenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEredmenyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEredmenyActionPerformed
 
     /**
      * @param args the command line arguments
