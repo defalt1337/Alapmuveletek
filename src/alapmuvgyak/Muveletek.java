@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,13 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Muveletek extends javax.swing.JFrame {
-    Random rnd = new Random();
-    int random1 = rnd.nextInt((99) + 1);
-    int random2 = rnd.nextInt((99) + 1);
-    int szamokmegoldasa;
-    /**
-     * Creates new form Muveletek
-     */
+    int osszeskerdesekSzama = 0;
+    int osztaskerdesSzama = 0;
+    int osztasprobakSzama = 0;
+    int szorzaskerdesSzama = 0;
+    int szorzasprobakSzama = 0;
+    int osszprobalkozasokSzama = 0;
+    
     public Muveletek() {
         initComponents();
     }
@@ -271,6 +273,11 @@ public class Muveletek extends javax.swing.JFrame {
 
         buttonGroup1.add(muv_rbtn_szorzas);
         muv_rbtn_szorzas.setText("Szorzás");
+        muv_rbtn_szorzas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                muv_rbtn_szorzasActionPerformed(evt);
+            }
+        });
         mnuMuvelet.add(muv_rbtn_szorzas);
 
         jMenuBar1.add(mnuMuvelet);
@@ -312,7 +319,16 @@ public class Muveletek extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEllenorzesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEllenorzesActionPerformed
-        //empty lines
+        osszprobalkozasokSzama++;
+        lbllblOsszProba.setText("Össz próbálkozások száma: " + osszprobalkozasokSzama);
+        
+        if (muv_rbtn_osztas.isSelected()) {
+            osztasprobakSzama++;
+            lblOsztasProba.setText("Osztás: " + osztasprobakSzama);
+        } else if(muv_rbtn_szorzas.isSelected()) {
+            szorzasprobakSzama++;
+            lblSzorzasProba.setText("Szorzás: " + szorzasprobakSzama);
+        }
     }//GEN-LAST:event_btnEllenorzesActionPerformed
 
     private void btnMegoldasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMegoldasActionPerformed
@@ -328,6 +344,26 @@ public class Muveletek extends javax.swing.JFrame {
         FileNameExtensionFilter textfilter = new FileNameExtensionFilter("csak szöveges dokumentum .txt", "TXT");
         fcMegnyit.addChoosableFileFilter(textfilter);
         
+        
+        int valasztottgomberteke = 0;
+        if (valasztottgomberteke == JFileChooser.APPROVE_OPTION) {
+            File f = fcMegnyit.getSelectedFile();
+            String fn = f.getPath();
+            lblEredmeny.setText("<html> Elérés: " + fn + "<br> Fájl neve: "+ f.getName() + "</html>");
+            
+            Path path = Paths.get(fn);
+            try {
+//                byte[] bajttomb = Files.readAllBytes(path);
+                List<String> stringLista = Files.readAllLines(path);
+                int i = 7;
+                
+                String sor = stringLista.get(1);
+                String[] adatok = sor.split(":");
+            } catch (IOException ex) {
+                Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+        }
         
     }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
 
@@ -378,31 +414,51 @@ public class Muveletek extends javax.swing.JFrame {
     }//GEN-LAST:event_fajl_chb_mentesmaskentActionPerformed
 
     private void muv_rbtn_osztasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muv_rbtn_osztasActionPerformed
-        int osztasMegoldas=random1/random2;
-        do {            
-            random2 = rnd.nextInt((99)+1);
-        } while (random2 == 0);
-        
-        String valasz = lblValasz.getText();
-        int szamValasz = Integer.parseInt(valasz);
-        
-        if (szamValasz==osztasMegoldas){
-            lblValasz.setText("Helyes megoldás!\n"+"Eddig helyesen megválaszolt kérdések száma: "+szamokmegoldasa);
-            szamokmegoldasa+=1;
-        }else {
-            lblValasz.setText("Helytelen válasz!\n"+"Eddig helyesen megválaszolt kérdések száma: "+szamokmegoldasa);
-            szamokmegoldasa-=1;
-            if (szamokmegoldasa==0){
-                szamokmegoldasa=0;
-            }
-        }
-        
-        
+//        int osztasMegoldas=random1/random2;
+//        do {            
+//            random2 = rnd.nextInt((99)+1);
+//        } while (random2 == 0);
+//        
+//        String valasz = lblValasz.getText();
+//        int szamValasz = Integer.parseInt(valasz);
+//        
+//        if (szamValasz==osztasMegoldas){
+//            lblValasz.setText("Helyes megoldás!\n"+"Eddig helyesen megválaszolt kérdések száma: "+szamokmegoldasa);
+//            szamokmegoldasa+=1;
+//        }else {
+//            lblValasz.setText("Helytelen válasz!\n"+"Eddig helyesen megválaszolt kérdések száma: "+szamokmegoldasa);
+//            szamokmegoldasa-=1;
+//            if (szamokmegoldasa==0){
+//                szamokmegoldasa=0;
+//            }
+//        }
+         int szam1, szam2;
+         boolean jo;
+         do {            
+            szam1 = (int)(Math.random()*101);
+            szam2 = (int)(Math.random()*99)+1;
+            jo = szam2 != 0 && szam1 % szam2 == 0 && szam1 > szam2;
+        } while (!jo);
+         lblFeladat.setText(szam1 + "/" + szam2 + "=");
+         
+         osszeskerdesekSzama++;
+         lblOsszKerdes.setText("Össz kérdések száma" + osszeskerdesekSzama);
+         osszeskerdesekSzama++;
+         lblOsztasKerdes.setText("Osztás: " + osztaskerdesSzama);
+         
     }//GEN-LAST:event_muv_rbtn_osztasActionPerformed
 
     private void txtEredmenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEredmenyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEredmenyActionPerformed
+
+    private void muv_rbtn_szorzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muv_rbtn_szorzasActionPerformed
+        osszeskerdesekSzama++;
+        lblOsszKerdes.setText("Össz kérdések száma: " + osszeskerdesekSzama);
+        
+        szorzaskerdesSzama++;
+        lblOsztasKerdes.setText("Szorzás: " + szorzaskerdesSzama);
+    }//GEN-LAST:event_muv_rbtn_szorzasActionPerformed
 
     /**
      * @param args the command line arguments
